@@ -30,7 +30,7 @@ func (f Stat) Init() tea.Cmd {
 
 // Update is called when a message is received. Use it to inspect messages
 // and, in response, update the model and/or send a command.
-func (f Stat) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
+func (f *Stat) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	switch msg := msg.(type) {
 	case StatUpdateMaxMsg:
 		f.max = int(msg)
@@ -48,8 +48,7 @@ func (f Stat) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 // View renders the program's UI, which is just a string. The view is
 // rendered after every Update.
 func (f Stat) View() string {
-	return fmt.Sprintf("%v/%v", f.value, f.max)
-
+	return fmt.Sprintf("[%+2d] %2d", (f.value-10)/2, f.value)
 }
 
 func (f *Stat) limitStatBounds() {

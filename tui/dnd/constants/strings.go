@@ -19,7 +19,7 @@ const (
 	SleightOfHand        = "sleight of hand"
 	Stealth              = "stealth"
 	Survival             = "survival"
-	MaxSkillStringLength = 15 + 1 // plus one to give at least one space
+	MaxSkillStringLength = 15
 )
 
 const (
@@ -29,4 +29,13 @@ const (
 	Intelligence = "int"
 	Wisdom       = "wis"
 	Charisma     = "cha"
+)
+
+const (
+	StrengthColor     = "#F47D56"
+	DexterityColor    = "#CDF456"
+	ConstitutionColor = "#7D56F4"
+	IntelligenceColor = "#56F47D"
+	WisdomColor       = "#56CDF4"
+	CharismaColor     = "#F456CD"
 )

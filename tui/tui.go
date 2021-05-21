@@ -2,10 +2,11 @@ package tui
 
 import (
 	"fmt"
-	"gobline/tui/constants"
-	"gobline/tui/themes"
-	"gobline/tui/views"
-	"gobline/tui/views/dnd"
+	"gobline/tui/common/themes"
+	"gobline/tui/common/views"
+	"gobline/tui/dnd"
+	"gobline/tui/dnd/constants"
+
 	"os"
 	"time"
 
@@ -14,12 +15,14 @@ import (
 )
 
 type tui struct {
-	header     tea.Model
-	options    tea.Model
-	notes      tea.Model
-	statPanel  tea.Model
-	skillPanel tea.Model
-	theme      themes.Theme
+	header      tea.Model
+	options     tea.Model
+	profPanel   tea.Model
+	notes       tea.Model
+	sensesPanel tea.Model
+	statPanel   tea.Model
+	skillPanel  tea.Model
+	theme       themes.Theme
 }
 
 func NewTUI() (*tui, error) {
@@ -28,6 +31,10 @@ func NewTUI() (*tui, error) {
 	statPanel := views.NewPanel("Stats", dndStats)
 	dndSkills := dnd.NewSkills()
 	skillPanel := views.NewPanel("Skills", dndSkills)
+	dndSenses := dnd.NewSenses()
+	sensesPanel := views.NewPanel("Passive Senses", dndSenses)
+	// dndSenses := dnd.NewProficiencies()
+	// sensesPanel := views.NewPanel("Passive Senses", dndSenses)
 	notes, err := views.NewNotes()
 	if err != nil {
 		fmt.Println("Could not initialize notes:", err)
@@ -54,12 +61,13 @@ func NewTUI() (*tui, error) {
 			}},
 	}
 	return &tui{
-		header:     views.NewHeaderView("Welcome to Gobline, the command line character sheet for dnd 5e"),
-		options:    views.NewHorizontalOptionsView(0, options),
-		notes:      notes,
-		statPanel:  statPanel,
-		skillPanel: skillPanel,
-		theme:      themes.NewDefaultTheme(),
+		header:      views.NewHeaderView("Welcome to Gobline, the command line character sheet for dnd 5e"),
+		options:     views.NewHorizontalOptionsView(0, options),
+		notes:       notes,
+		sensesPanel: sensesPanel,
+		statPanel:   statPanel,
+		skillPanel:  skillPanel,
+		theme:       themes.NewDefaultTheme(),
 	}, nil
 }
 
@@ -103,27 +111,27 @@ func (t tui) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			t.options = ops
 			return t, cmd
 		case "6":
-			s, cmd := t.statPanel.Update(dnd.StatsUpdateMsg{Label: constants.Strength, Value: 15, Max: 20})
+			s, cmd := t.statPanel.Update(dnd.StatsUpdateMsg{Label: constants.Strength, Value: 14})
 			t.statPanel = s
 			return t, cmd
 		case "7":
-			s, cmd := t.statPanel.Update(dnd.StatsUpdateMsg{Label: constants.Dexterity, Value: 10, Max: 20})
+			s, cmd := t.statPanel.Update(dnd.StatsUpdateMsg{Label: constants.Dexterity, Value: 10})
 			t.statPanel = s
 			return t, cmd
 		case "8":
-			s, cmd := t.statPanel.Update(dnd.StatsUpdateMsg{Label: constants.Constitution, Value: 5, Max: 20})
+			s, cmd := t.statPanel.Update(dnd.StatsUpdateMsg{Label: constants.Constitution, Value: 8})
 			t.statPanel = s
 			return t, cmd
 		case "9":
-			s, cmd := t.statPanel.Update(dnd.StatsUpdateMsg{Label: constants.Intelligence, Value: 0, Max: 20})
+			s, cmd := t.statPanel.Update(dnd.StatsUpdateMsg{Label: constants.Intelligence, Value: 12})
 			t.statPanel = s
 			return t, cmd
 		case "0":
-			s, cmd := t.statPanel.Update(dnd.StatsUpdateMsg{Label: constants.Wisdom, Value: 40, Max: 20})
+			s, cmd := t.statPanel.Update(dnd.StatsUpdateMsg{Label: constants.Wisdom, Value: 12})
 			t.statPanel = s
 			return t, cmd
 		case "-":
-			s, cmd := t.statPanel.Update(dnd.StatsUpdateMsg{Label: constants.Charisma, Value: -2, Max: 20})
+			s, cmd := t.statPanel.Update(dnd.StatsUpdateMsg{Label: constants.Charisma, Value: 16})
 			t.statPanel = s
 			return t, cmd
 		default:
@@ -138,7 +146,8 @@ func (t tui) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 func (t tui) View() string {
 	header := t.header.View()
-	body := lipgloss.JoinHorizontal(lipgloss.Top, t.statPanel.View(), t.skillPanel.View(), t.notes.View())
+	leftbodycolumn := lipgloss.JoinVertical(lipgloss.Left, t.statPanel.View(), t.sensesPanel.View())
+	body := lipgloss.JoinHorizontal(lipgloss.Top, leftbodycolumn, t.skillPanel.View(), t.notes.View())
 	full := lipgloss.JoinVertical(lipgloss.Left, header, body, t.options.View())
 	return lipgloss.NewStyle().BorderStyle(lipgloss.DoubleBorder()).Render(full)
 }

@@ -1,8 +1,8 @@
 package views_test
 
 import (
-	"gobline/tui/themes"
-	"gobline/tui/views"
+	"gobline/tui/common/themes"
+	"gobline/tui/common/views"
 	"testing"
 
 	tea "github.com/charmbracelet/bubbletea"
