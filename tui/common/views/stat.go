@@ -2,24 +2,40 @@ package views
 
 import (
 	"fmt"
+	"gobline/tui/common/themes"
 
 	tea "github.com/charmbracelet/bubbletea"
 )
 
 type Stat struct {
-	value int
-	max   int
+	value     int
+	max       int
+	formatter func(int, int) string
 }
 type StatUpdateMaxMsg int
 type StatUpdateValueMsg int
+type StatOption func(f *Stat) error
 
-func NewStat(value, max int) *Stat {
+func NewStat(value, max int, opts ...StatOption) (*Stat, error) {
+	defaultFormatter := func(value int, max int) string { return fmt.Sprintf("%v/%v", value, max) }
 	stat := &Stat{
-		value: value,
-		max:   max,
+		value:     value,
+		max:       max,
+		formatter: defaultFormatter,
+	}
+	for _, opt := range opts {
+		if err := opt(stat); err != nil {
+			return nil, err
+		}
 	}
 	stat.limitStatBounds()
-	return stat
+	return stat, nil
+}
+func WithStatFormatter(formatter func(int, int) string) StatOption {
+	return func(f *Stat) error {
+		f.formatter = formatter
+		return nil
+	}
 }
 
 // Init is the first function that will be called. It returns an optional
@@ -48,7 +64,7 @@ func (f *Stat) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 // View renders the program's UI, which is just a string. The view is
 // rendered after every Update.
 func (f Stat) View() string {
-	return fmt.Sprintf("[%+2d] %2d", (f.value-10)/2, f.value)
+	return themes.TotalTheme.Render(f.formatter(f.value, f.max))
 }
 
 func (f *Stat) limitStatBounds() {

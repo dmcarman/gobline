@@ -2,6 +2,7 @@ package views
 
 import (
 	"fmt"
+	"gobline/tui/common/themes"
 
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
@@ -91,5 +92,5 @@ func (s Total) View() string {
 	} else {
 		amount = fmt.Sprintf(":%v", s.Amount)
 	}
-	return lipgloss.JoinHorizontal(lipgloss.Center, label, " ", lipgloss.NewStyle().Background(lipgloss.Color("#FAFAFA")).Foreground(lipgloss.Color("#0F0F0F")).Render(amount+" "))
+	return lipgloss.JoinHorizontal(lipgloss.Center, label, themes.TotalTheme.Render(amount))
 }

@@ -1,6 +1,7 @@
 package dnd
 
 import (
+	"fmt"
 	"gobline/tui/common/views"
 	"gobline/tui/dnd/constants"
 
@@ -23,12 +24,14 @@ type StatsUpdateMsg struct {
 }
 
 func NewStats() *Stats {
-	strength := views.NewStat(0, 20)
-	dexterity := views.NewStat(0, 20)
-	constitution := views.NewStat(0, 20)
-	intelligence := views.NewStat(0, 20)
-	wisdom := views.NewStat(0, 20)
-	charisma := views.NewStat(0, 20)
+	statFormatterOpt := views.WithStatFormatter(func(value int, _ int) string { return fmt.Sprintf(" [%+2d] %2d", (value-10)/2, value) })
+	strength, _ := views.NewStat(0, 20, statFormatterOpt)
+	dexterity, _ := views.NewStat(0, 20, statFormatterOpt)
+	constitution, _ := views.NewStat(0, 20, statFormatterOpt)
+	intelligence, _ := views.NewStat(0, 20, statFormatterOpt)
+	wisdom, _ := views.NewStat(0, 20, statFormatterOpt)
+	charisma, _ := views.NewStat(0, 20, statFormatterOpt)
+
 	statProgressWidthOpt := views.WithProgressWidth(10)
 	strengthBar, _ := views.NewStatPercentbar(strength, constants.Strength, views.WithStatLabelColor(constants.StrengthColor), views.WithProgressSolidFill(constants.StrengthColor), statProgressWidthOpt)
 	dexterityBar, _ := views.NewStatPercentbar(dexterity, constants.Dexterity, views.WithStatLabelColor(constants.DexterityColor), views.WithProgressSolidFill(constants.DexterityColor), statProgressWidthOpt)

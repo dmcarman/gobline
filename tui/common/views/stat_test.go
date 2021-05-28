@@ -47,7 +47,7 @@ func TestMultipleNewStatBounds(t *testing.T) {
 	}
 	for _, tC := range testCases {
 		t.Run(tC.desc, func(t *testing.T) {
-			stat := views.NewStat(tC.value, tC.max)
+			stat, _ := views.NewStat(tC.value, tC.max)
 			if s := stat.View(); s != tC.expected {
 				t.Log(s)
 				t.Fatalf("failed stat test %v", tC.desc)
@@ -86,7 +86,7 @@ func TestStatMsgs(t *testing.T) {
 	for _, tC := range testCases {
 		t.Run(tC.desc, func(t *testing.T) {
 			var stat tea.Model
-			stat = views.NewStat(0, 10)
+			stat, _ = views.NewStat(0, 10)
 			stat, _ = stat.Update(tC.testMsg)
 			if s := stat.View(); s != tC.expected {
 				t.Log(s)
