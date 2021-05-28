@@ -40,3 +40,15 @@ var DefaultPanelBorderBottom lipgloss.Style = lipgloss.NewStyle().
 	Border(lipgloss.RoundedBorder(), false, true, true, true)
 var DefaultPanelTitleBorder lipgloss.Style = lipgloss.NewStyle().
 	Border(lipgloss.RoundedBorder(), true, true, false, true)
+var TotalTheme lipgloss.Style = lipgloss.NewStyle().Background(lipgloss.Color("#FAFAFA")).Foreground(lipgloss.Color("#0F0F0F")).PaddingRight(1).MarginLeft(1)
+var ItemlistNameTheme lipgloss.Style = lipgloss.NewStyle().Background(lipgloss.Color("#7D56F4"))
+var ItemlistDescriptionTheme lipgloss.Style = lipgloss.NewStyle().BorderLeft(true).BorderStyle(lipgloss.Border{
+	Top:         "",
+	Bottom:      "",
+	Left:        "|",
+	Right:       "",
+	TopLeft:     "",
+	TopRight:    "",
+	BottomRight: "",
+	BottomLeft:  "",
+})

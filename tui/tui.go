@@ -22,6 +22,7 @@ type tui struct {
 	sensesPanel tea.Model
 	statPanel   tea.Model
 	skillPanel  tea.Model
+	profsPanel  tea.Model
 	theme       themes.Theme
 }
 
@@ -33,8 +34,8 @@ func NewTUI() (*tui, error) {
 	skillPanel := views.NewPanel("Skills", dndSkills)
 	dndSenses := dnd.NewSenses()
 	sensesPanel := views.NewPanel("Passive Senses", dndSenses)
-	// dndSenses := dnd.NewProficiencies()
-	// sensesPanel := views.NewPanel("Passive Senses", dndSenses)
+	dndProfs := dnd.NewProficiencies()
+	profsPanel := views.NewPanel("Proficiencies", dndProfs)
 	notes, err := views.NewNotes()
 	if err != nil {
 		fmt.Println("Could not initialize notes:", err)
@@ -67,6 +68,7 @@ func NewTUI() (*tui, error) {
 		sensesPanel: sensesPanel,
 		statPanel:   statPanel,
 		skillPanel:  skillPanel,
+		profsPanel:  profsPanel,
 		theme:       themes.NewDefaultTheme(),
 	}, nil
 }
@@ -146,7 +148,7 @@ func (t tui) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 func (t tui) View() string {
 	header := t.header.View()
-	leftbodycolumn := lipgloss.JoinVertical(lipgloss.Left, t.statPanel.View(), t.sensesPanel.View())
+	leftbodycolumn := lipgloss.JoinVertical(lipgloss.Left, t.statPanel.View(), t.sensesPanel.View(), t.profsPanel.View())
 	body := lipgloss.JoinHorizontal(lipgloss.Top, leftbodycolumn, t.skillPanel.View(), t.notes.View())
 	full := lipgloss.JoinVertical(lipgloss.Left, header, body, t.options.View())
 	return lipgloss.NewStyle().BorderStyle(lipgloss.DoubleBorder()).Render(full)

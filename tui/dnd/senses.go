@@ -30,7 +30,7 @@ type Senses struct {
 }
 
 func NewSenses() *Senses {
-	senseLabelWidthOpt := views.WithMaxLabelWidth(constants.MaxSkillStringLength)
+	senseLabelWidthOpt := views.WithMaxLabelWidth(constants.MaxSkillStringLength + 3)
 	senseAmountLabelOpt := views.WithMaxAmountWidth(3)
 	perception, _ := views.NewTotal(constants.Perception, 15, senseLabelWidthOpt, senseAmountLabelOpt, views.WithColor(constants.DexterityColor))
 	investigation, _ := views.NewTotal(constants.Investigation, 12, senseLabelWidthOpt, senseAmountLabelOpt, views.WithColor(constants.WisdomColor))
