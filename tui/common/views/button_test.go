@@ -1,9 +1,10 @@
 package views_test
 
 import (
-	"gobline/tui/common/themes"
-	"gobline/tui/common/views"
 	"testing"
+
+	"github.com/dmcarman/gobline/tui/common/themes"
+	"github.com/dmcarman/gobline/tui/common/views"
 
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"

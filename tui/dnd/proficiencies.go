@@ -1,7 +1,7 @@
 package dnd
 
 import (
-	"gobline/tui/common/views"
+	"github.com/dmcarman/gobline/tui/common/views"
 
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"

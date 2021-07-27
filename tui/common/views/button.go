@@ -1,7 +1,7 @@
 package views
 
 import (
-	"gobline/tui/common/themes"
+	"github.com/dmcarman/gobline/tui/common/themes"
 
 	tea "github.com/charmbracelet/bubbletea"
 )

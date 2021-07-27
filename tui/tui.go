@@ -2,10 +2,14 @@ package tui
 
 import (
 	"fmt"
-	"gobline/tui/common/themes"
-	"gobline/tui/common/views"
-	"gobline/tui/dnd"
-	"gobline/tui/dnd/constants"
+
+	"github.com/dmcarman/gobline/tui/dnd/constants"
+
+	"github.com/dmcarman/gobline/tui/dnd"
+
+	"github.com/dmcarman/gobline/tui/common/views"
+
+	"github.com/dmcarman/gobline/tui/common/themes"
 
 	"os"
 	"time"

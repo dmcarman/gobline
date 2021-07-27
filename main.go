@@ -2,8 +2,9 @@ package main
 
 import (
 	"fmt"
-	"gobline/tui"
 	"os"
+
+	"github.com/dmcarman/gobline/tui"
 
 	tea "github.com/charmbracelet/bubbletea"
 )

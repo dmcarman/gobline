@@ -1,4 +1,4 @@
-module gobline
+module github.com/dmcarman/gobline
 
 go 1.16
 

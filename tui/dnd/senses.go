@@ -1,8 +1,8 @@
 package dnd
 
 import (
-	"gobline/tui/common/views"
-	"gobline/tui/dnd/constants"
+	"github.com/dmcarman/gobline/tui/common/views"
+	"github.com/dmcarman/gobline/tui/dnd/constants"
 
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"

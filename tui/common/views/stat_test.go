@@ -1,9 +1,10 @@
 package views_test
 
 import (
-	"gobline/tui/common/views"
 	"strings"
 	"testing"
+
+	"github.com/dmcarman/gobline/tui/common/views"
 
 	tea "github.com/charmbracelet/bubbletea"
 )
