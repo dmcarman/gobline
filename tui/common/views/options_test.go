@@ -53,12 +53,12 @@ func TestOptionsSelectionExceedsRange(t *testing.T) {
 }
 func TestOptionsHighlightSelected(t *testing.T) {
 	optview := getTestOptionView(2)
-	if optview.View() != "T[1mT[0mT" {
+	if optview.View() != "T\x1B[1mT\x1B[0mT" {
 		t.Log(optview.View())
 		t.Fatal("Selected Option not highlighted")
 	}
 	optview.Update(views.OptionsSelectMsg(3))
-	if optview.View() != "TT[1mT[0m" {
+	if optview.View() != "TT\x1B[1mT\x1B[0m" {
 		t.Log(optview.View())
 		t.Fatal("Selected Option not highlighted")
 	}

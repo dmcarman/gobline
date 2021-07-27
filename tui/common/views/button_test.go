@@ -25,7 +25,7 @@ func TestButtonSelect(t *testing.T) {
 		t.Fatalf("Button normal style not applied")
 	}
 	btn, _ = btn.Update(views.ButtonSelectMsg(true))
-	if btn.View() != "[1mTest[0m" {
+	if btn.View() != "\x1B[1mTest\x1B[0m" {
 		t.Fatalf("Button highlight style not applied after select msg")
 	}
 
@@ -36,7 +36,7 @@ func TestButtonDisable(t *testing.T) {
 		t.Fatalf("Button normal style not applied")
 	}
 	btn, _ = btn.Update(views.ButtonDisableMsg(true))
-	if btn.View() != "[2mTest[0m" {
+	if btn.View() != "\x1B[2mTest\x1B[0m" {
 		t.Fatalf("Button disabled style not applied after disable msg")
 	}
 
